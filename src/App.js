@@ -5,7 +5,6 @@ import { Route, Switch,  BrowserRouter as Router } from "react-router-dom";
 import InputPage from "./containers/InputPage";
 import Home from './containers/Home';
 import SignUp from './containers/SignUp';
-import Login from './containers/Login';
 
 class App extends React.Component {
   render(){
@@ -16,7 +15,6 @@ class App extends React.Component {
             <Route path="/" exact component={Home}/>
             <Route path="/signup" exact component={SignUp}/>
             <Route path="/input" exact component={InputPage}/>
-            <Route path="/login" exact component={Login}/>
           </Switch>
         </Router>
       </div>

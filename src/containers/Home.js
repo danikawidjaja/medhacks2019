@@ -1,6 +1,7 @@
 import React from "react";
 import Add from "@material-ui/icons/Add";
 import LoginForm from "../components/LoginForm";
+import Logo from "../components/Logo";
 
 class Home extends React.Component{
     constructor(props){
@@ -14,7 +15,7 @@ class Home extends React.Component{
         return(
             <div className="container centered">
                 <div className="section">
-                    <div className="gradient logo"/>
+                    <Logo link={true}/>
                     <h1>Hemolite</h1>
                 </div>
                 <div className="section">
