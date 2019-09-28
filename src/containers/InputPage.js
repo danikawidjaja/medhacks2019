@@ -1,5 +1,9 @@
 import React from 'react';
 import '../App.css';
+import Logo from '../components/Logo';
+import { Fab, TextField } from '@material-ui/core';
+import SendIcon from "@material-ui/icons/Send";
+
 
 class InputPage extends React.Component {
   constructor(props){
@@ -29,11 +33,25 @@ class InputPage extends React.Component {
   }
   render(){
     return (
-      <div className="App">
+      <div className="container centered">
+        <Logo link={true}/>
         <form onSubmit={this.submit}>
-          <label>Reading: </label>
-          <input type='number' id="reading" value={this.state.reading} onChange={this.handleChange}/>
-          <button type="submit">Submit</button>
+          {/* <label>Reading: </label>
+          <input type='number' id="reading" value={this.state.reading} onChange={this.handleChange}/> */}
+          <div>
+            <TextField
+                id="reading"
+                label="Reading"
+                type="number"
+                value={this.state.reading}
+                onChange={this.handleChange}
+                margin="normal"
+                variant="outlined"
+                required
+                style={{marginBottom:'1rem'}}
+            />
+          </div>
+          <Fab className="gradient" type="submit" ><SendIcon style={{color:"white"}}/></Fab>
         </form>
         {this.state.recommendation && 
         <div>
