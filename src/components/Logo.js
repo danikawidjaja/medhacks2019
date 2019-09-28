@@ -15,4 +15,7 @@ function Logo(props){
     }
 }
 
+Logo.defaultProps={
+    link: true
+}
 export default Logo;

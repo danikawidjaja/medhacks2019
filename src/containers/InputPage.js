@@ -20,6 +20,7 @@ class InputPage extends React.Component {
     console.log(new Date())
     this.setState({
       recommendation: {
+        good: false,
         status: "your hematocrit is too low!",
         treatment:"take oxytocin"
       }
@@ -34,10 +35,8 @@ class InputPage extends React.Component {
   render(){
     return (
       <div className="container centered">
-        <Logo link={true}/>
+        <Logo/>
         <form onSubmit={this.submit}>
-          {/* <label>Reading: </label>
-          <input type='number' id="reading" value={this.state.reading} onChange={this.handleChange}/> */}
           <div>
             <TextField
                 id="reading"
@@ -54,14 +53,21 @@ class InputPage extends React.Component {
           <Fab className="gradient" type="submit" ><SendIcon style={{color:"white"}}/></Fab>
         </form>
         {this.state.recommendation && 
-        <div>
-          <p>{this.state.recommendation.status}</p>
-          <p>{this.state.recommendation.treatment}</p>
-        </div>}
+        <Recommendation recommendation={this.state.recommendation}/>}
       </div>
     );
   }
-  
+}
+
+class Recommendation extends React.Component{
+  render(){
+    return(
+      <div className={this.props.recommendation.good ? "recommendation good" : "recommendation bad"}>
+        <p>{this.props.recommendation.status}</p>
+        <p>{this.props.recommendation.treatment}</p>
+      </div>
+    )
+  }
 }
 
 export default InputPage;

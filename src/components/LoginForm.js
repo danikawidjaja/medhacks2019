@@ -13,9 +13,13 @@ class SignUpForm extends React.Component{
     }
     submit(event){
         event.preventDefault();
-        console.log(this.state)
-        //api submit
-        this.props.history.push("/input");    
+        if (this.state.name === "Danika Widjaja"){
+            this.props.history.push("/input");   
+        }
+        else{
+            this.props.history.push("/signup")
+        }
+         
     }
     handleChange(event){
         event.preventDefault()
