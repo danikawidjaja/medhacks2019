@@ -1,6 +1,7 @@
 import React from "react";
 import { TextField, FormLabel, Radio, FormControl, Fab } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
+import { backendServices } from "./LoginForm";
 
 class SignUpForm extends React.Component{
     constructor(props){
@@ -16,16 +17,24 @@ class SignUpForm extends React.Component{
     }
     submit(event){
         event.preventDefault();
-        console.log(this.state)
-        //api submit
-        this.props.history.push("/input");    
+        backendServices.signup(this.state.name, this.state.hemoglobin, this.state.reading)
+        .then(response =>{
+            if (response.success){
+                this.props.history.push("/");   
+            }
+            else{
+                console.log(response)
+            }
+        })
+        .catch(err =>{
+        console.log(err)
+        }) 
     }
     handleChange(event){
         event.preventDefault()
         this.setState({
             [event.target.id]: event.target.value
         });
-        console.log(event.target.value)
     }
     handleChangeAnemic(boolean){
         this.setState({
@@ -88,6 +97,7 @@ class SignUpForm extends React.Component{
                             margin="normal"
                             variant="outlined"
                             required
+                            inputProps={{ min: "0", step: "1" }}
                         />
                     </div>
                     <div>
@@ -100,6 +110,7 @@ class SignUpForm extends React.Component{
                             margin="normal"
                             variant="outlined"
                             required
+                            inputProps={{ min: "0", step: "1" }}
                         />
                     </div>
                 </div>

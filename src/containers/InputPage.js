@@ -3,6 +3,7 @@ import '../App.css';
 import Logo from '../components/Logo';
 import { Fab, TextField } from '@material-ui/core';
 import SendIcon from "@material-ui/icons/Send";
+import { backendServices } from '../components/LoginForm';
 
 
 class InputPage extends React.Component {
@@ -17,14 +18,24 @@ class InputPage extends React.Component {
   }
   submit(event){
     event.preventDefault();
-    console.log(new Date())
-    this.setState({
-      recommendation: {
-        good: false,
-        status: "your hematocrit is too low!",
-        treatment:"take oxytocin"
-      }
+    var date = (new Date()).toString();
+    var name = this.props.match.params.name;
+    backendServices.setMeasurement(name, date, this.state.reading)
+    .then(response =>{
+      this.setState({
+        recommendation: response.diagnosisString
+      })
     })
+    .catch(err =>{
+      console.log(err)
+    })
+    // this.setState({
+    //   recommendation: {
+    //     good: false,
+    //     status: "your hematocrit is too low!",
+    //     treatment:"take oxytocin"
+    //   }
+    // })
   }
   handleChange(event){
     event.preventDefault()
@@ -48,6 +59,7 @@ class InputPage extends React.Component {
                 variant="outlined"
                 required
                 style={{marginBottom:'1rem'}}
+                inputProps={{ min: "0", step: "1" }}
             />
           </div>
           <Fab className="gradient" type="submit" ><SendIcon style={{color:"white"}}/></Fab>
@@ -62,9 +74,12 @@ class InputPage extends React.Component {
 class Recommendation extends React.Component{
   render(){
     return(
-      <div className={this.props.recommendation.good ? "recommendation good" : "recommendation bad"}>
-        <p>{this.props.recommendation.status}</p>
-        <p>{this.props.recommendation.treatment}</p>
+      // <div className={this.props.recommendation.good ? "recommendation good" : "recommendation bad"}>
+      //   <p>{this.props.recommendation.status}</p>
+      //   <p>{this.props.recommendation.treatment}</p>
+      // </div>
+      <div>
+        <p>{this.props.recommendation}</p>
       </div>
     )
   }
